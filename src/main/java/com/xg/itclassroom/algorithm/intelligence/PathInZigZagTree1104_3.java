@@ -1,6 +1,7 @@
 package com.xg.itclassroom.algorithm.intelligence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +32,12 @@ import java.util.TreeMap;
 	思路:
 		先根据label，得出最后一层的层数level；
 			再根据label 和 level 获取上层的 label —— 使用传统满二叉树的规律 对称
+				位运算 !!
 		
  * @author star
  * @date: Oct 16, 2019
  */
-public class PathInZigZagTree1104_2 {
+public class PathInZigZagTree1104_3 {
 
 	public static void main(String[] args) {
 		// 节点标号
@@ -52,65 +54,21 @@ public class PathInZigZagTree1104_2 {
 	
     public static List<Integer> pathInZigZagTree(int label) {
     	
-    	Integer level = getLevelBylabel(label);
+    	List<Integer> list = new ArrayList<Integer>();
+    	while (label >= 1) {
+    		list.add(label);
+    		// 上层节点数字： 根据规律 1. 除以2取整 （右移1位） ； 2. 找树上对称数字： 高位相同，低位取反
+    		label = label>>1;
+    		
+    		// TODO ?????? 位运算 待研究
+    		int tmp=Integer.highestOneBit(label) * 2 - 1;
+            label=label^(tmp>>1);
+            
+            
+		}
     	
-    	Map<Integer, Integer> map = new TreeMap<Integer, Integer>();
-    	
-    	for( ;level > 0 ; ) {
-    		map.put(level-1, label);
-    		// 获取上层的数据
-    		label = getUpperLabelByThisLevel(label, level);
-    		level--;
-    	}
-    	
-    	List<Integer> list = new ArrayList<Integer>( map.values() );
+    	Collections.reverse(list);
     	return list;
     }
 
-	private static Integer getUpperLabelByThisLevel(int label, Integer level) {
-		Integer upperLevel = level - 1 ;
-		// 上层最大值
-		Integer maxByLevel = getMaxByLevel(upperLevel);
-		// 上层最小值
-		Integer minByLevel = getMinByLevel(upperLevel);
-		
-    	Integer upperLabel = minByLevel + maxByLevel - (label / 2);
-    	
-    	return upperLabel;
-	}
-
-	public static Integer getLevelBylabel( int label ) {
-    	Integer level = 0;
-		while(true) {
-			level++;
-			Integer levelMin = getMinByLevel(level);
-			Integer levelMax = getMaxByLevel(level);
-			if ((levelMin <= label) && (label <= levelMax)) {
-				break;
-			}
-		}
-		return level;
-    }
-    
-    /**
-     * 根据层级获取 该层最小值
-     * @param level
-     * @return
-     */
-    public static Integer getMinByLevel( int level ) {
-		Double pow = Math.pow(2, (level - 1));
-		int min = pow.intValue();
-		return min;
-	}
-
-    /**
-     * 根据层级获取 该层最大值
-     * @param level
-     * @return
-     */
-    public static Integer getMaxByLevel( int level ) {
-    	Double pow = Math.pow(2, level) -1;
-		int max = pow.intValue();
-		return max;
-    }
 }
