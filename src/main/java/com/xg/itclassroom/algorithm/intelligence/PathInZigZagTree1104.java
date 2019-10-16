@@ -28,9 +28,9 @@ import java.util.TreeMap;
 链接：https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
-	解法参考: 
-		
 	思路:
+		先根据label，得出最后一层的层数level；
+			再根据label 和 level 获取上层的 label
 		
  * @author star
  * @date: Oct 16, 2019
