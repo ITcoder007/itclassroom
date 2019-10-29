@@ -1,4 +1,4 @@
-package com.xg.itclassroom;
+package com.xg;
 
 /**
  * Hello world!
