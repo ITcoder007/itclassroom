@@ -2,3 +2,5 @@
 /**/.gitignore
 /.classpath
 /target/
+/bin/
+/.project

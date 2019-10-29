@@ -1,6 +1,14 @@
 spring:
-  datasource:
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/myDb
-    username: user1
-    password: pass 
+#  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/myDb
+#    username: user1
+#    password: pass 
+    
+  swagger2:
+    title: demo
+    description: desc
+    name: 耿佳兴
+    email: stargeng@aijiatui.com
+    version: 1.0
+    enabled: true
