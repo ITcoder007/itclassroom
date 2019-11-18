@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xg.demo.aspect.LogBeforeHandle;
+import com.xg.demo.object.WrapperResponse;
 import com.xg.demo.object.request.HelloReq;
 
 import io.swagger.annotations.Api;
@@ -41,7 +42,8 @@ public class HelloController {
 	@PostMapping("/hello/post")
 	@LogBeforeHandle
 	@ApiOperation("")
-	public String phello(@Valid @RequestBody HelloReq req) {
-		return "hello world!" + req.getName();
+	public WrapperResponse<String> phello(@Valid @RequestBody HelloReq req) {
+		final String greetings = "hello world!" + req.getName();
+		return new WrapperResponse<String>(greetings);
 	}
 }
